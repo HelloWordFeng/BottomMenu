@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bottom_menu_press_color">#eeeeee</color>
+    <color name="white_color">#ffffff</color>
+    <color name="bottom_color">#00000000</color>
+    <color name="red_color">#FF0000</color>
+</resources>
