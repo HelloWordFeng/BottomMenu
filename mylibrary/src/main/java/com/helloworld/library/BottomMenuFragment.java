@@ -18,7 +18,6 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.helloworld.library.adapter.CommonRecyclerAdapter;
 import com.helloworld.library.adapter.MenuAdapter;
@@ -211,8 +210,6 @@ public class BottomMenuFragment extends DialogFragment {
             for (int i = 0; i < menuItems.size(); i++) {
                 menuItemList.add(menuItems.get(i));
             }
-        } else {
-            Toast.makeText(context, "list size is null！", Toast.LENGTH_SHORT).show();
         }
         return this;
     }
@@ -352,7 +349,7 @@ public class BottomMenuFragment extends DialogFragment {
 
     public BottomMenuFragment setTopShape(int resId) {
         topShape = resId;
-        return this;
+        return this
     }
 
     public BottomMenuFragment setMiddleShape(int resId) {

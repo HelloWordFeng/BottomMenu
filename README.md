@@ -1,58 +1,120 @@
 # BottomMenu  
-## IOS、QQ底部导航栏效果  
+## 仿IOS、QQ底部导航栏效果,可自定义多种属性效果  
 # 效果图
 ![效果图](https://github.com/HelloWordFeng/BottomMenu/blob/master/picture/design_sketch.gif)  
 ## 如何使用
+1、项目根目录加入
 dependencies {  
-　`implementation 'com.github.HelloWordFeng:BottomMenu:1.0'`   
-}  
-**1、初始化**  
-在Application中进行初始化  
-`EmojiManager.init(this)`  
-**2、在布局中应用**  
-
-    <com.green.hand.library.widget.EmojiBoard
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      app:deleteIcon="@mipmap/ic_launcher"//可选
-      app:emojiIndicator="@mipmap/ic_launcher"//可选
-      app:emojiIndicatorHover="@mipmap/ic_launcher"//可选
-    /> 
-*可选，如果不用此控件，需自行监听实现，具体参考[EmoniEdittext](https://github.com/OneGreenHand/Emoji/blob/master/library/src/main/java/com/green/hand/library/EmoniEdittext.java)。
-
-    <com.green.hand.library.widget.EmojiEdittext
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-    />
-//兼容emoji显示的textview
-
-     <com.green.hand.library.widget.EmojiTextview
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-     />
-
-**3、在页面中使用**
-实现表情框Item单击事件（emojiBoard为[EmojiBoard](https://github.com/OneGreenHand/Emoji/blob/master/library/src/main/java/com/green/hand/library/EmojiBoard.java)控件，textEditor为Edittext控件）
-
-    emojiBoard.setItemClickListener(new EmojiBoard.OnEmojiItemClickListener() {//表情框点击事件
-     @Override
-     public void onClick(String code) {
-        if (code.equals("/DEL")) {//点击了删除图标
-           textEditor.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, KeyEvent.KEYCODE_DEL));
-        } else {//插入表情
-    textEditor.getText().insert(textEditor.getSelectionStart(), code);
+```python
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url 'https://jitpack.io' }
     }
-    }
-    });
+}
+```
+在build.gradle加入依赖
 
-**4、其他方法**  
-EmojiBoard　--->　showBoard()　//显示隐藏表情框  
-EmoniEdittext　--->　isEnable(view)　//用于未输入文字时，其他按钮不可点击  
-EmojiTextview　--->　setUseSystemDefault(boolean)　//是否使用系统默认表情
-### 属性说明  
-deleteIcon：删除icon  
-emojiIndicator：底部未选中icon   
-emojiIndicatorHover：底部选中icon  
+```python
+      implementation 'com.github.HelloWordFeng:BottomMenu:1.0.1'
+
+```
+
+**1、使用方法**  
+1、默认IOS弹框
+
+```python
+    private List<String> list = new ArrayList<>();
+
+  /**
+     * 仿ios弹框
+     */
+    private void showIOSDialog() {
+        list.clear();
+        for (int i = 0; i < 4; i++) {
+            list.add("文本内容" + i);
+        }
+        new BottomMenuFragment(this)
+                .setTitle("标题")
+                .addMenuItems(list)
+                .setOnItemClickListener(new BottomMenuFragment.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView menu, int position) {
+                        Toast.makeText(MainActivity.this, menu.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+
+                    }
+                })
+                .show();
+    }
+```
+
+2、QQ图片长按弹框
+```python
+ /**
+     * 仿QQ图片长按弹框
+     */
+    private void showQQDialog() {
+        list.clear();
+        list.add("发送给好友");
+        list.add("转载到空间相册");
+        list.add("群相册");
+        list.add("保存到手机");
+        list.add("提取图中文字");
+        list.add("收藏");
+        new BottomMenuFragment(this)
+                .setContentSize(16)
+                .setCancelTextTitle("取消")
+                .setCancelTextSize(16)
+                .setCancelTextColor("#454545")
+                .setCancelTextHeight(45)
+                .setCancelTextMarginTop(20)
+                .setContentColor("#454545")
+                .addMenuItems(list)
+                .setBackgroundColor("#ebebeb")
+                .setCancelPadding(0,0,0,0)
+                .setSizeOneShape(R.drawable.bottom_menu_mid_selector)
+                .setTopShape(R.drawable.bottom_menu_mid_selector)
+                .setMiddleShape(R.drawable.bottom_menu_mid_selector)
+                .setBottomShape(R.drawable.bottom_menu_mid_selector)
+                .setCancelShape(R.drawable.bottom_menu_mid_selector)
+                .setOnItemClickListener(new BottomMenuFragment.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView menu, int position) {
+                        Toast.makeText(MainActivity.this, menu.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .show();
+    }
+```
+
+**2、属性说明**  
+
+### 
+|  方法名  |  描述  |  参数值【默认】  |
+| :-------- | --------:| :--: |
+| addMenuItems  | 数据源item选项 |  List<String> menuItems   |
+| setCancelTextTitle |  底部文字文本  |  取消  |
+| setCancelTextSize |    底部文字大小  | 16sp  |
+| setCancelTextColor |    底部文字颜色  | （#467CD4蓝色）  |
+| setCancelTextHeight  |    底部文字高度 | dip2px（45）)  |
+| setCancelTextMarginTop  |    底部取消文字边距(距离顶部) | 20  |
+| setCancelPadding  |    底部文字整体边距 | int left, int top, int right, int bottom （20） |
+| setCancelShape  |    取消文字点击样式 | int resId （例如：R.drawable.bottom_menu_selector 非图片 样式shape） |
+| setBackgroundColor  |    底部整体背景 | （#00000000）  |
+| setTitle  |    标题 | -  |
+| setTitleSize  |    文字大小 | 16  |
+| setTitleColor  |    文字颜色 | （#ff0000 红色）  |
+| setContentSize  |    item内容文字大小 | 15sp  |
+| setContentColor  |    item内容文字颜色 | （#467CD4蓝色）  |
+| setLineHeight  |    item分割线高度 | 1dp  |
+| setLineColor  |    item分割线颜色 | （#ebebeb 灰色）  |
+| setSizeOneShape  |    数据size为1个样式 |  （例如：R.drawable.bottom_menu_selector 非图片 样式shape）  |
+| setTopShape  |    item第一个样式  | （例如：R.drawable.bottom_menu_top_selector 非图片 样式shape）  |
+| setMiddleShape  |    item中间样式 | （例如：R.drawable.bottom_menu_mid_selector 非图片 样式shape）  |
+| setBottomShape  |    item最后一个样式 | （例如：R.drawable.bottom_menu_bottom_selector 非图片 样式shape）  |
 
 ### **补充说明** 
-如果仍然出现显示为☐或者乱码情况，可尝试使用官方的 [EmojiCompat](https://www.jianshu.com/p/2a26502db899) 支持库或使用[emojicon](https://github.com/rockerhieu/emojicon)三方库
+如果上诉属性设置均未满足需求，可自行下载源码进行修改。
