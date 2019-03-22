@@ -94,8 +94,8 @@ allprojects {
 
 ### 
 |  方法名  |  描述  |  参数值【默认】  |
-| :-------- | --------:| :--: |
-| addMenuItems  | 数据源item选项 |  List<String> menuItems   |
+| :--------: | :--------:| :--: |
+| addMenuItems  | 数据源item选项 |  （List<String> menuItems）   |
 | setCancelTextTitle |  底部文字文本  |  取消  |
 | setCancelTextSize |    底部文字大小  | 16sp  |
 | setCancelTextColor |    底部文字颜色  | （#467CD4蓝色）  |
