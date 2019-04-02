@@ -1,21 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
->
+    android:orientation="vertical">
 
     <Button
-        android:id="@+id/open_qq"
+        android:id="@+id/open_click1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="输入弹框" />
+
+    <Button
+        android:id="@+id/open_click2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="列表弹框" />
+
+    <Button
+        android:id="@+id/open_click3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="普通提示框1" />
+
+    <Button
+        android:id="@+id/open_click4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="普通提示框2" />
+
+    <Button
+        android:id="@+id/open_click5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="QQ图片弹框" />
 
     <Button
-        android:id="@+id/open_ios"
+        android:id="@+id/open_click6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="IOS底部弹框" />
+
+
 </LinearLayout>

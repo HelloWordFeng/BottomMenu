@@ -1,5 +1,5 @@
 # BottomMenu  
-## 仿IOS、QQ底部导航栏效果,可自定义多种属性效果  
+## 各种简单样式的弹出框 现包含IOS、QQ底部弹出框、单个EditText输入框、List列表和提示框等效果，可以自定义多种属性效果。  
 # 效果图
 ![效果图](https://github.com/HelloWordFeng/BottomMenu/blob/master/picture/design_sketch.gif)  
 ## 如何使用
@@ -22,12 +22,144 @@ allprojects {
 ```
 
 ## 1、使用方法 
-1、默认IOS弹框
 
 ```python
+    public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
     private List<String> list = new ArrayList<>();
 
-  /**
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        findViewById(R.id.open_click1).setOnClickListener(this);
+        findViewById(R.id.open_click2).setOnClickListener(this);
+        findViewById(R.id.open_click3).setOnClickListener(this);
+        findViewById(R.id.open_click4).setOnClickListener(this);
+        findViewById(R.id.open_click5).setOnClickListener(this);
+        findViewById(R.id.open_click6).setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.open_click1:
+                showDialogType();
+                break;
+            case R.id.open_click2:
+                showListDialog();
+                break;
+            case R.id.open_click3:
+                showDialogBasic1();
+                break;
+            case R.id.open_click4:
+                showDialogBasic2();
+                break;
+            case R.id.open_click5:
+                showQQDialog();
+                break;
+            case R.id.open_click6:
+                showIOSDialog();
+                break;
+        }
+    }
+
+    /**
+     * 输入框弹框类型
+     */
+    private void showDialogType() {
+        new MiddleDialogConfig().builder(this)
+                .setDialogStyle(DialogEnum.EDIT)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了左边：");
+                    }
+                })
+                .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
+                    @Override
+                    public void leftBtn(String cont) {
+                        showToast("点击了右边：" + cont);
+                    }
+                }).show();
+    }
+
+    /**
+     * list弹框
+     */
+    private void showListDialog() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            list.add("选项Item" + i);
+        }
+        new MiddleDialogConfig().builder(this)
+                .setDialogStyle(DialogEnum.LIST)
+                .setDatas(list)
+                .setItemSlidingCount(6, 0.85)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了左边：" );
+                    }
+                })
+                .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
+                    @Override
+                    public void leftBtn(String cont) {
+                        showToast("点击了右边：");
+                    }
+                })
+                .setItemCallBack(new MiddleDialogConfig.ItemCallBackListener() {
+                    @Override
+                    public void item(String str) {
+                        showToast("选择了：" + str);
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * 输入框弹框类型
+     */
+    private void showDialogBasic1() {
+        new MiddleDialogConfig().builder(this)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了左边：");
+                    }
+                })
+                .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
+                    @Override
+                    public void leftBtn(String cont) {
+                        showToast("点击了右边：");
+                    }
+                }).show();
+    }
+
+    /**
+     * 输入框弹框类型
+     */
+    private void showDialogBasic2() {
+        new MiddleDialogConfig().builder(this)
+                .setTitleVis(false)
+                .setContentColor("#ff0000")
+                .setLeftVis(false)
+                .setContentPadding(20,20,20,20)
+                .setContentMaxLine(2)
+                .setContentSize(16)
+                .setIsCancel(true)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了右边：" );
+                    }
+                }).show();
+    }
+
+
+    /**
      * 仿ios弹框
      */
     private void showIOSDialog() {
@@ -48,11 +180,8 @@ allprojects {
                 })
                 .show();
     }
-```
 
-2、QQ图片长按弹框
-```python
- /**
+    /**
      * 仿QQ图片长按弹框
      */
     private void showQQDialog() {
@@ -73,7 +202,7 @@ allprojects {
                 .setContentColor("#454545")
                 .addMenuItems(list)
                 .setBackgroundColor("#ebebeb")
-                .setCancelPadding(0,0,0,0)
+                .setCancelPadding(0, 0, 0, 0)
                 .setSizeOneShape(R.drawable.bottom_menu_mid_selector)
                 .setTopShape(R.drawable.bottom_menu_mid_selector)
                 .setMiddleShape(R.drawable.bottom_menu_mid_selector)
@@ -88,10 +217,16 @@ allprojects {
                 })
                 .show();
     }
+
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+}
+
 ```
 
 ## 2、属性说明 
-
+1、BottomMenuFragment （底部样式）
 ### 
 |  方法名  |  描述  |  参数值【默认】  |
 | :--------: | :--------:| :--: |
@@ -116,5 +251,46 @@ allprojects {
 | setMiddleShape  |    item中间样式 | （例如：R.drawable.bottom_menu_mid_selector 非图片 样式shape）  |
 | setBottomShape  |    item最后一个样式 | （例如：R.drawable.bottom_menu_bottom_selector 非图片 样式shape）  |
 
-### **补充说明** 
+2、MiddleDialogConfig （中间样式）
+### 
+|  方法名  |  描述  |  参数值【默认】  |
+| :--------: | :--------:| :--: |
+| setDialogStyle  | 弹框样式（默认BASIC） |   BASIC,EDIT,LIST   |
+| setDatas |  数据源  |  List<String> mDatas  |
+| setItemSlidingCount |    超过个数列表可滑动、弹框宽度屏幕占比  | int count, double dialogWidth(0-1)  |
+| setIsCancel |    点击外部是否可取消  | boolean isCancel  |
+| setHeight  |    弹框高度屏幕的百分比 | double heigh（0-1）  |
+| setWidth  |    弹框宽度屏幕的百分比 | double width（0-1）  |
+| setHeightLineColor  |    垂直分隔线颜色 | （默认："#454545"） |
+| setWidthLineColor  |    横向分隔线颜色 | （默认："#454545"） |
+| setTitleVis  |    是否显示标题 | boolean isVis  |
+| setTitleBgColor  |    设置标题栏背景 | int bgColor（非图片 样式shape）  |
+| setTitlePadding  |    设置标题边距 | int left, int top, int right, int bottom （15）  |
+| setContent  |    设置提示的内容 | （String类型）  |
+| setContentBgColor  |    设置内容背景 | int bgColor（非图片 样式shape）  |
+| setContentPadding  |    设置内容边距 | int left, int top, int right, int bottom （20）  |
+| setContentMaxLine  |    设置最大显示几行 | -  |
+| setLeft  |    设置左侧按钮文字 | （String类型）  |
+| setLeftColor  |    左侧按钮文字颜色 |  （默认："#454545"）  |
+| setLeftVis  |    左侧是否显示  | boolean isVis  |
+| setLeftCallBack  |    左侧点击事件  | LeftCallBack leftBack  |
+| setBottomPadding  |    设置底部右边边文字边距 | int left, int top, int right, int bottom （15）  |
+| setBackageShape  |    弹框样式 | int resId（非图片 样式shape）  |
+| setEditHint  |    输入框提示文字 | （String类型）  |
+| setEditHintNull  |    输入框为空提示字 | （String类型）  |
+| setEditHintColor  |    输入框为空提示字颜色 | （默认："#828282"）  |
+| setEditTextColor  |    输入框文字颜色 | （默认："#454545"）  |
+| setEditBackageShape  |    输入框样式 | int resId（非图片 样式shape 15dp圆角））  |
+| setEditPadding  |    输入框内边距 | int left, int top, int right, int bottom （15）  |
+| setEditMargin  |    输入框距外边距 | int left, int top, int right, int bottom （15）  |
+| setItemCallBack  |    item点击事件 | ItemCallBackListener listener  |
+| setItemSize  |    item字体大小 | 15sp  |
+| setItemColor  |    item字体颜色 | （默认："#454545"）  |
+| setItemPadding  |    item字体内边距 | int left, int top, int right, int bottom （15）  |
+| setItemGravity  |    item字体位置 | Gravity.TOP、Gravity.RIGHT、Gravity.LEFT、Gravity.BOTTOM...  |
+| show  |    显示底部弹框 | -  |
+
+注意：-为系统默认值
+
+## 3、 补充说明
 如果上诉属性设置均未满足需求，可自行下载源码进行修改。

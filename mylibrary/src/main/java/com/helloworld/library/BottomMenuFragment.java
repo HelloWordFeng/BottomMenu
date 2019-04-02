@@ -19,12 +19,11 @@ import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.helloworld.library.adapter.CommonRecyclerAdapter;
 import com.helloworld.library.adapter.MenuAdapter;
+import com.helloworld.library.base.CommonRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 
 /**
@@ -118,7 +117,7 @@ public class BottomMenuFragment extends DialogFragment {
         });
         //展示数据源
         RecyclerView recycler = view.findViewById(R.id.recycler);
-        adapter = new MenuAdapter(context, menuItemList,showTitle);
+        adapter = new MenuAdapter(context, menuItemList, showTitle);
         recycler.setLayoutManager(new LinearLayoutManager(context));
         recycler.setAdapter(adapter);
         adapter.setTitleSize(titleSize);
@@ -349,7 +348,7 @@ public class BottomMenuFragment extends DialogFragment {
 
     public BottomMenuFragment setTopShape(int resId) {
         topShape = resId;
-        return this
+        return this;
     }
 
     public BottomMenuFragment setMiddleShape(int resId) {

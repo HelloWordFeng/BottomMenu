@@ -7,6 +7,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.helloworld.library.R;
+import com.helloworld.library.base.CommonRecyclerAdapter;
+import com.helloworld.library.base.RecyclerHolder;
 
 import java.util.List;
 

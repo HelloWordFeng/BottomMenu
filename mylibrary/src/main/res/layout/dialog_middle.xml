@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/middle_linear"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/middle_shape"
+    android:gravity="bottom"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/middle_title"
+        style="@style/middle_title"
+        android:text="标题" />
+
+    <TextView
+        android:id="@+id/middle_content"
+        style="@style/dialog_center"
+        android:text=" 在Android开发当中,在界面上弹出一个Dialog对话框使我们经常需要做的,本篇随笔将详细的讲解Dialog对话框这个概念,包括定义不同样式的对话框。" />
+
+    <EditText
+        android:id="@+id/middle_edit"
+        style="@style/edit_style"
+        android:hint="请输入样式"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/middle_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <View
+        android:id="@+id/middle_width_line"
+        style="@style/line_style" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/middle_cancel"
+            style="@style/bottom_text"
+            android:background="@drawable/left_shape"
+            android:text="取消" />
+
+        <View
+            android:id="@+id/middle_line"
+            style="@style/line_height_style" />
+
+        <TextView
+            android:id="@+id/middle_determine"
+            style="@style/bottom_text"
+            android:background="@drawable/right_shape"
+            android:text="确定" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="bottom_menu_press_color">#eeeeee</color>
+
     <color name="white_color">#ffffff</color>
     <color name="bottom_color">#00000000</color>
     <color name="red_color">#FF0000</color>
+
+    <!-- 标题颜色 -->
+    <color name="title_color">#FF4081</color>
+    <!-- 内容颜色 -->
+    <color name="text_color">#454545</color>
+    <!-- 分割线 -->
+    <color name="box_border_color">#999999</color>
+    <!-- 按钮松开颜色 -->
+    <color name="btn_sel_color">#ffffff</color>
+    <!-- 按钮按下颜色 -->
+    <color name="btn_unsel_color">#E9E9E9</color>
+    <!--文字提示颜色-->
+    <color name="input_hint_color">#828282</color>
 </resources>

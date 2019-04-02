@@ -1,4 +1,4 @@
-package com.helloworld.library.adapter;
+package com.helloworld.library.base;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -7,11 +7,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helloworld.library.BottomMenuFragment;
+import com.helloworld.library.MiddleDialogConfig;
+import com.helloworld.library.utils.DialogEnum;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<String> list = new ArrayList<>();
 
@@ -20,19 +22,131 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        this.findViewById(R.id.open_qq).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showQQDialog();
-            }
-        });
-        this.findViewById(R.id.open_ios).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showIOSDialog();
-            }
-        });
+        findViewById(R.id.open_click1).setOnClickListener(this);
+        findViewById(R.id.open_click2).setOnClickListener(this);
+        findViewById(R.id.open_click3).setOnClickListener(this);
+        findViewById(R.id.open_click4).setOnClickListener(this);
+        findViewById(R.id.open_click5).setOnClickListener(this);
+        findViewById(R.id.open_click6).setOnClickListener(this);
     }
+
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.open_click1:
+                showDialogType();
+                break;
+            case R.id.open_click2:
+                showListDialog();
+                break;
+            case R.id.open_click3:
+                showDialogBasic1();
+                break;
+            case R.id.open_click4:
+                showDialogBasic2();
+                break;
+            case R.id.open_click5:
+                showQQDialog();
+                break;
+            case R.id.open_click6:
+                showIOSDialog();
+                break;
+        }
+    }
+
+    /**
+     * 输入框弹框类型
+     */
+    private void showDialogType() {
+        new MiddleDialogConfig().builder(this)
+                .setDialogStyle(DialogEnum.EDIT)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了左边：");
+                    }
+                })
+                .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
+                    @Override
+                    public void leftBtn(String cont) {
+                        showToast("点击了右边：" + cont);
+                    }
+                }).show();
+    }
+
+    /**
+     * list弹框
+     */
+    private void showListDialog() {
+        List<String> list = new ArrayList<>();
+        for (int i = 0; i < 50; i++) {
+            list.add("选项Item" + i);
+        }
+        new MiddleDialogConfig().builder(this)
+                .setDialogStyle(DialogEnum.LIST)
+                .setDatas(list)
+                .setItemSlidingCount(6, 0.85)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了左边：" );
+                    }
+                })
+                .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
+                    @Override
+                    public void leftBtn(String cont) {
+                        showToast("点击了右边：");
+                    }
+                })
+                .setItemCallBack(new MiddleDialogConfig.ItemCallBackListener() {
+                    @Override
+                    public void item(String str) {
+                        showToast("选择了：" + str);
+                    }
+                })
+                .show();
+    }
+
+    /**
+     * 输入框弹框类型
+     */
+    private void showDialogBasic1() {
+        new MiddleDialogConfig().builder(this)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了左边：");
+                    }
+                })
+                .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
+                    @Override
+                    public void leftBtn(String cont) {
+                        showToast("点击了右边：");
+                    }
+                }).show();
+    }
+
+    /**
+     * 输入框弹框类型
+     */
+    private void showDialogBasic2() {
+        new MiddleDialogConfig().builder(this)
+                .setTitleVis(false)
+                .setContentColor("#ff0000")
+                .setLeftVis(false)
+                .setContentPadding(20,20,20,20)
+                .setContentMaxLine(2)
+                .setContentSize(16)
+                .setIsCancel(true)
+                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
+                    @Override
+                    public void rightBtn(String cont) {
+                        showToast("点击了右边：" );
+                    }
+                }).show();
+    }
+
 
     /**
      * 仿ios弹框
@@ -77,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 .setContentColor("#454545")
                 .addMenuItems(list)
                 .setBackgroundColor("#ebebeb")
-                .setCancelPadding(0,0,0,0)
+                .setCancelPadding(0, 0, 0, 0)
                 .setSizeOneShape(R.drawable.bottom_menu_mid_selector)
                 .setTopShape(R.drawable.bottom_menu_mid_selector)
                 .setMiddleShape(R.drawable.bottom_menu_mid_selector)
@@ -91,5 +205,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    private void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }
