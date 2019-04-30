@@ -15,7 +15,7 @@ allprojects {
     }
 }
 ```
-在build.gradle加入依赖
+2、在build.gradle加入依赖
 
 ```python
       implementation 'com.github.HelloWordFeng:BottomMenu:1.0.3'
@@ -24,7 +24,7 @@ allprojects {
 
 ## 更新说明
 
-### V1.0.3 新增3级联动城市弹框，（数据源采用.json文件 如需动态获取可自行改造列表弹框）
+### V1.0.3 新增3级城市联动弹框（数据源采用.json文件 如需动态获取可自行改造列表弹框）
 
 ### V1.0.2 新增列表弹框及部分属性方法
 
