@@ -1,4 +1,5 @@
 <resources>
+
     <style name="menu_animation">
         <item name="android:windowEnterAnimation">@anim/menu_appear</item>
         <item name="android:windowExitAnimation">@anim/menu_disappear</item>
@@ -79,8 +80,11 @@
         <item name="android:maxLength">300</item>
         <item name="android:layout_margin">15dp</item>
         <item name="android:gravity">center_vertical</item>
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
+        <item name="android:padding">10dp</item>
+        <!--<item name="android:paddingLeft">10dp</item>-->
+        <!--<item name="android:paddingRight">10dp</item>-->
+        <!--<item name="android:paddingTop">5dp</item>-->
+        <!--<item name="android:paddingBottom">5dp</item>-->
         <item name="android:textCursorDrawable">@drawable/shape_et_cursor</item>
     </style>
 </resources>

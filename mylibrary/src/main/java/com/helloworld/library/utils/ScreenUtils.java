@@ -13,9 +13,19 @@ import java.lang.reflect.Field;
  */
 public class ScreenUtils {
 
+    /**
+     * 网上流传
+     */
+//    public static int dip2px(Context context, float dpValue) {
+//        final float scale = context.getResources().getDisplayMetrics().density;
+//        return (int) (dpValue * scale + 0.5f);
+//    }
+
+    /**
+     * TabLayout源码
+     */
     public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+        return Math.round(context.getResources().getDisplayMetrics().density * dpValue);
     }
 
     /**

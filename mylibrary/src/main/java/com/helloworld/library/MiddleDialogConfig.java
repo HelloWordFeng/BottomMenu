@@ -60,6 +60,8 @@ public class MiddleDialogConfig {
     private Myadapter adapter;
     //数据源
     private List<String> mDatas = new ArrayList<>();
+    //省市区0、1、2
+    private int cityType;
 
     public MiddleDialogConfig builder(Context mContext) {
         this.mContext = mContext;
@@ -103,8 +105,12 @@ public class MiddleDialogConfig {
             @Override
             public void onItemClick(RecyclerView parent, View view, int position) {
                 dialog.dismiss();
-                if (mDatas.size() > 0 && null != listener) {
-                    listener.item(mDatas.get(position));
+                if (null != listener && mDatas.size() > 0) {
+                    if (dialogEnum == DialogEnum.LIST) {
+                        listener.item(mDatas.get(position));
+                    } else if (dialogEnum == DialogEnum.CITY) {
+                        listener.item(position + "," + mDatas.get(position) + "," + cityType);
+                    }
                 }
             }
         });
@@ -123,7 +129,7 @@ public class MiddleDialogConfig {
             middleContent.setVisibility(View.GONE);
             middleEdit.setVisibility(View.VISIBLE);
             middleRecycler.setVisibility(View.GONE);
-        } else if (dialogStyle == DialogEnum.LIST) {
+        } else if (dialogStyle == DialogEnum.LIST || dialogStyle == DialogEnum.CITY) {
             middleContent.setVisibility(View.GONE);
             middleEdit.setVisibility(View.GONE);
             middleRecycler.setVisibility(View.VISIBLE);
@@ -136,7 +142,7 @@ public class MiddleDialogConfig {
      */
     public MiddleDialogConfig setDatas(List<String> mDatas) {
         this.mDatas = mDatas;
-        if (dialogEnum == DialogEnum.LIST) {
+        if (dialogEnum == DialogEnum.LIST || dialogEnum == DialogEnum.CITY) {
             adapter.setList(mDatas);
         }
         return this;
@@ -148,7 +154,7 @@ public class MiddleDialogConfig {
      */
     public MiddleDialogConfig setItemSlidingCount(int count, double dialogWidth) {
         ViewGroup.LayoutParams params = middleRecycler.getLayoutParams();
-        params.height = ScreenUtils.dip2px(mContext, count) * 45;
+        params.height = ScreenUtils.dip2px(mContext, 45) * count;
         params.width = (int) (ScreenUtils.getScreenWidth(mContext) * dialogWidth);
         Log.e(TAG, "initAdapter: " + params.height);
         middleRecycler.setLayoutParams(params);
@@ -333,6 +339,17 @@ public class MiddleDialogConfig {
     }
 
     /**
+     * 同时隐藏取消、确认按钮
+     */
+    public MiddleDialogConfig setLeftRightVis() {
+        middleCancel.setVisibility(View.GONE);
+        middleDetermine.setVisibility(View.GONE);
+        middleWidthLine.setVisibility(View.GONE);
+        middleLine.setVisibility(View.GONE);
+        return this;
+    }
+
+    /**
      * 设置右侧按钮文字
      */
     public MiddleDialogConfig setRight(String rightString) {
@@ -452,6 +469,14 @@ public class MiddleDialogConfig {
     }
 
     /**
+     * 设置省市区级数
+     */
+    public MiddleDialogConfig setCityLevel(int type) {
+        this.cityType = type;
+        return this;
+    }
+
+    /**
      * 左右2边点击事件
      */
     private void initClick() {
@@ -557,9 +582,10 @@ public class MiddleDialogConfig {
     private ItemCallBackListener listener;
 
     public interface ItemCallBackListener {
-        void item(String str);
 
+        void item(String str);
     }
+
 
     /**
      * 显示底部弹框

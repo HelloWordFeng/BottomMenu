@@ -17,65 +17,27 @@ allprojects {
 在build.gradle加入依赖
 
 ```python
-      implementation 'com.github.HelloWordFeng:BottomMenu:1.0.2'
+      implementation 'com.github.HelloWordFeng:BottomMenu:1.0.3'
 
 ```
 
+## 更新说明
+
+### V1.0.3 新增3级联动城市弹框，增加枚举类型及部分属性方法
+
+### V1.0.2 新增列表弹框及部分属性方法
+
 ## 1、使用方法 
 
+### 1、输入框
+
 ```python
-    public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
-    private List<String> list = new ArrayList<>();
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        findViewById(R.id.open_click1).setOnClickListener(this);
-        findViewById(R.id.open_click2).setOnClickListener(this);
-        findViewById(R.id.open_click3).setOnClickListener(this);
-        findViewById(R.id.open_click4).setOnClickListener(this);
-        findViewById(R.id.open_click5).setOnClickListener(this);
-        findViewById(R.id.open_click6).setOnClickListener(this);
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.open_click1:
-                showDialogType();
-                break;
-            case R.id.open_click2:
-                showListDialog();
-                break;
-            case R.id.open_click3:
-                showDialogBasic1();
-                break;
-            case R.id.open_click4:
-                showDialogBasic2();
-                break;
-            case R.id.open_click5:
-                showQQDialog();
-                break;
-            case R.id.open_click6:
-                showIOSDialog();
-                break;
-        }
-    }
-
-    /**
-     * 输入框弹框类型
-     */
-    private void showDialogType() {
-        new MiddleDialogConfig().builder(this)
+   new MiddleDialogConfig().builder(this)
                 .setDialogStyle(DialogEnum.EDIT)
                 .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
                     @Override
                     public void rightBtn(String cont) {
-                        showToast("点击了左边：");
+                        showToast("点击了左边："+cont);
                     }
                 })
                 .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
@@ -84,13 +46,11 @@ allprojects {
                         showToast("点击了右边：" + cont);
                     }
                 }).show();
-    }
+```
 
-    /**
-     * list弹框
-     */
-    private void showListDialog() {
-        List<String> list = new ArrayList<>();
+### 2、列表框
+```python
+ List<String> list = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
             list.add("选项Item" + i);
         }
@@ -101,7 +61,7 @@ allprojects {
                 .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
                     @Override
                     public void rightBtn(String cont) {
-                        showToast("点击了左边：" );
+                        showToast("点击了左边：");
                     }
                 })
                 .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
@@ -117,13 +77,11 @@ allprojects {
                     }
                 })
                 .show();
-    }
+```
 
-    /**
-     * 输入框弹框类型
-     */
-    private void showDialogBasic1() {
-        new MiddleDialogConfig().builder(this)
+### 3、提示框
+```python
+ new MiddleDialogConfig().builder(this)
                 .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
                     @Override
                     public void rightBtn(String cont) {
@@ -136,56 +94,11 @@ allprojects {
                         showToast("点击了右边：");
                     }
                 }).show();
-    }
+```
 
-    /**
-     * 输入框弹框类型
-     */
-    private void showDialogBasic2() {
-        new MiddleDialogConfig().builder(this)
-                .setTitleVis(false)
-                .setContentColor("#ff0000")
-                .setLeftVis(false)
-                .setContentPadding(20,20,20,20)
-                .setContentMaxLine(2)
-                .setContentSize(16)
-                .setIsCancel(true)
-                .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
-                    @Override
-                    public void rightBtn(String cont) {
-                        showToast("点击了右边：" );
-                    }
-                }).show();
-    }
-
-
-    /**
-     * 仿ios弹框
-     */
-    private void showIOSDialog() {
-        list.clear();
-        for (int i = 0; i < 4; i++) {
-            list.add("文本内容" + i);
-        }
-        new BottomMenuFragment(this)
-                .setTitle("标题")
-                .addMenuItems(list)
-                .setOnItemClickListener(new BottomMenuFragment.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(TextView menu, int position) {
-                        Toast.makeText(MainActivity.this, menu.getText().toString(),
-                                Toast.LENGTH_SHORT).show();
-
-                    }
-                })
-                .show();
-    }
-
-    /**
-     * 仿QQ图片长按弹框
-     */
-    private void showQQDialog() {
-        list.clear();
+### 4、QQ底部弹框
+```python
+ list.clear();
         list.add("发送给好友");
         list.add("转载到空间相册");
         list.add("群相册");
@@ -216,13 +129,92 @@ allprojects {
                     }
                 })
                 .show();
-    }
+```
 
-    private void showToast(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-    }
-}
+### 5、ios弹框
+```python
+ list.clear();
+        for (int i = 0; i < 4; i++) {
+            list.add("文本内容" + i);
+        }
+        new BottomMenuFragment(this)
+                .setTitle("标题")
+                .addMenuItems(list)
+                .setOnItemClickListener(new BottomMenuFragment.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(TextView menu, int position) {
+                        Toast.makeText(MainActivity.this, menu.getText().toString(),
+                                Toast.LENGTH_SHORT).show();
 
+                    }
+                })
+                .show();
+```
+
+### 6、城市弹框
+```python
+ private String appendCity;
+ private int selectPosition;
+ 
+ //只需点击时调用即可
+ appendCity = "";//置空
+                options.clear();
+                //遍历省份数据
+                for (int i = 0; i < DataUtils.returnJson().size(); i++) {
+                    options.add(DataUtils.returnJson().get(i).getName());
+                }
+                showCityDialog(0);
+
+//执行方法				
+ private void showCityDialog(final int selectType) {
+        //超过几个可滑动
+        int size = 6;
+        String title = null;
+        if (options.size() < size) {
+            size = options.size();
+        }
+        if (selectType == 0) {
+            title = "请选择省份";
+        } else if (selectType == 1) {
+            title = "请选择城市";
+        } else if (selectType == 2) {
+            title = "请选择区县";
+        }
+        new MiddleDialogConfig().builder(this)
+                .setTitle(title)
+                .setDialogStyle(DialogEnum.CITY)
+                .setDatas(options)
+                .setItemSlidingCount(size, 0.7)
+                .setCityLevel(selectType)
+                .setLeftRightVis()
+                .setItemCallBack(new MiddleDialogConfig.ItemCallBackListener() {
+                    @Override
+                    public void item(String str) {
+                        String[] cont = str.split(",");
+                        appendCity += cont[1] + "\u3000";
+                        cityText.setText(appendCity);
+                        //int type= Integer.parseInt(cont[2]);
+                        int position = Integer.parseInt(cont[0]);
+                        if (null != options) {
+                            options.clear();
+                        }
+                        if (selectType == 0) {
+                            for (int i = 0; i < DataUtils.returnCitys().get(position).size(); i++) {
+                                options.add(DataUtils.returnCitys().get(position).get(i));
+                            }
+                            selectPosition = position;
+                            showCityDialog(1);
+                        } else if (selectType == 1) {
+                            for (int i = 0; i < DataUtils.returnAreas().get(selectPosition).get(position).size(); i++) {
+                                options.add(DataUtils.returnAreas().get(selectPosition).get(position).get(i));
+                            }
+                            showCityDialog(2);
+                        }
+                    }
+                })
+                .show();
+    }				
+				
 ```
 
 ## 2、属性说明 
@@ -287,7 +279,8 @@ allprojects {
 | setItemSize  |    item字体大小 | 15sp  |
 | setItemColor  |    item字体颜色 | （默认："#454545"）  |
 | setItemPadding  |    item字体内边距 | int left, int top, int right, int bottom （15）  |
-| setItemGravity  |    item字体位置 | Gravity.TOP、Gravity.RIGHT、Gravity.LEFT、Gravity.BOTTOM...  |
+| setCityLevel  |    城市等级 | 0、1、2  |
+| setLeftRightVis  |   取消、确认按钮 | 同时隐藏  |
 | show  |    显示底部弹框 | -  |
 
 注意：-为系统默认值

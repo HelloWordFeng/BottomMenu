@@ -40,5 +40,17 @@
         android:layout_height="wrap_content"
         android:text="IOS底部弹框" />
 
+    <TextView
+        android:id="@+id/city_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="请选择城市" />
+
+    <Button
+        android:id="@+id/open_click7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="城市中间弹框" />
 
 </LinearLayout>

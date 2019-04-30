@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.helloworld.library.BottomMenuFragment;
 import com.helloworld.library.MiddleDialogConfig;
+import com.helloworld.library.utils.DataUtils;
 import com.helloworld.library.utils.DialogEnum;
 
 import java.util.ArrayList;
@@ -16,20 +17,32 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private List<String> list = new ArrayList<>();
+    private TextView cityText;
+    private ArrayList<String> options = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        cityText = this.findViewById(R.id.city_text);
         findViewById(R.id.open_click1).setOnClickListener(this);
         findViewById(R.id.open_click2).setOnClickListener(this);
         findViewById(R.id.open_click3).setOnClickListener(this);
         findViewById(R.id.open_click4).setOnClickListener(this);
         findViewById(R.id.open_click5).setOnClickListener(this);
         findViewById(R.id.open_click6).setOnClickListener(this);
+        findViewById(R.id.open_click7).setOnClickListener(this);
+        initCity();
+
     }
 
+    /**
+     * 初始化省市区数据源（需要时添加）
+     */
+    private void initCity() {
+        DataUtils.initCityList(this);
+    }
 
     @Override
     public void onClick(View v) {
@@ -52,7 +65,72 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.open_click6:
                 showIOSDialog();
                 break;
+            case R.id.open_click7:
+                appendCity = "";//置空
+                options.clear();
+                //遍历省份数据
+                for (int i = 0; i < DataUtils.returnJson().size(); i++) {
+                    options.add(DataUtils.returnJson().get(i).getName());
+                }
+                showCityDialog(0);
+                break;
         }
+    }
+
+    /**
+     * 城市弹框
+     */
+    //拼接省市区
+    private String appendCity;
+    private int selectPosition;
+
+    private void showCityDialog(final int selectType) {
+        //超过几个可滑动
+        int size = 6;
+        String title = null;
+        if (options.size() < size) {
+            size = options.size();
+        }
+        if (selectType == 0) {
+            title = "请选择省份";
+        } else if (selectType == 1) {
+            title = "请选择城市";
+        } else if (selectType == 2) {
+            title = "请选择区县";
+        }
+        new MiddleDialogConfig().builder(this)
+                .setTitle(title)
+                .setDialogStyle(DialogEnum.CITY)
+                .setDatas(options)
+                .setItemSlidingCount(size, 0.7)
+                .setCityLevel(selectType)
+                .setLeftRightVis()
+                .setItemCallBack(new MiddleDialogConfig.ItemCallBackListener() {
+                    @Override
+                    public void item(String str) {
+                        String[] cont = str.split(",");
+                        appendCity += cont[1] + "\u3000";
+                        cityText.setText(appendCity);
+                        //int type= Integer.parseInt(cont[2]);
+                        int position = Integer.parseInt(cont[0]);
+                        if (null != options) {
+                            options.clear();
+                        }
+                        if (selectType == 0) {
+                            for (int i = 0; i < DataUtils.returnCitys().get(position).size(); i++) {
+                                options.add(DataUtils.returnCitys().get(position).get(i));
+                            }
+                            selectPosition = position;
+                            showCityDialog(1);
+                        } else if (selectType == 1) {
+                            for (int i = 0; i < DataUtils.returnAreas().get(selectPosition).get(position).size(); i++) {
+                                options.add(DataUtils.returnAreas().get(selectPosition).get(position).get(i));
+                            }
+                            showCityDialog(2);
+                        }
+                    }
+                })
+                .show();
     }
 
     /**
@@ -64,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
                     @Override
                     public void rightBtn(String cont) {
-                        showToast("点击了左边：");
+                        showToast("点击了左边："+cont);
                     }
                 })
                 .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
@@ -90,7 +168,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
                     @Override
                     public void rightBtn(String cont) {
-                        showToast("点击了左边：" );
+                        showToast("点击了左边：");
                     }
                 })
                 .setLeftCallBack(new MiddleDialogConfig.LeftCallBack() {
@@ -135,14 +213,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .setTitleVis(false)
                 .setContentColor("#ff0000")
                 .setLeftVis(false)
-                .setContentPadding(20,20,20,20)
+                .setContentPadding(20, 20, 20, 20)
                 .setContentMaxLine(2)
                 .setContentSize(16)
                 .setIsCancel(true)
                 .setRightCallBack(new MiddleDialogConfig.RightCallBack() {
                     @Override
                     public void rightBtn(String cont) {
-                        showToast("点击了右边：" );
+                        showToast("点击了右边：");
                     }
                 }).show();
     }

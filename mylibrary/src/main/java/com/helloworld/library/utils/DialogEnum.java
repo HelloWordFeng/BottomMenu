@@ -8,5 +8,6 @@ package com.helloworld.library.utils;
 public enum DialogEnum {
     BASIC,
     EDIT,
-    LIST
+    LIST,
+    CITY
 }
