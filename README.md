@@ -26,8 +26,6 @@ allprojects {
 
 ### V1.0.3 新增3级联动城市弹框，增加枚举类型及部分属性方法
 
-![效果图](https://github.com/HelloWordFeng/BottomMenu/blob/master/picture/city.jpg) 
-
 ### V1.0.2 新增列表弹框及部分属性方法
 
 ## 1、使用方法 
