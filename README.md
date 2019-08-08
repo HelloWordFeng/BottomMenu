@@ -18,7 +18,7 @@ allprojects {
 2、在build.gradle加入依赖
 
 ```python
-      implementation 'com.github.HelloWordFeng:BottomMenu:1.0.3'
+      implementation 'com.github.HelloWordFeng:BottomMenu:1.0.4'
 
 ```
 
