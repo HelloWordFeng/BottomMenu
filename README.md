@@ -158,6 +158,9 @@ allprojects {
 ```python
  private String appendCity;
  private int selectPosition;
+
+ //初始化执行
+ DataUtils.initCityList(this);
  
  //只需点击时调用即可
  appendCity = "";//置空

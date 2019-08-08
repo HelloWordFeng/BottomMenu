@@ -34,14 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         findViewById(R.id.open_click5).setOnClickListener(this);
         findViewById(R.id.open_click6).setOnClickListener(this);
         findViewById(R.id.open_click7).setOnClickListener(this);
-        initCity();
-
-    }
-
-    /**
-     * 初始化省市区数据源（需要时添加）
-     */
-    private void initCity() {
+        //初始化省市区数据源（需要时添加）
         DataUtils.initCityList(this);
     }
 
